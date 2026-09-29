@@ -1,0 +1,27 @@
+/* Admin specific overrides to differentiate from standard dashboard */
+body[data-theme="light"] {
+    background: #fffafa;
+    /* very slight red tint */
+}
+
+body[data-theme="dark"] {
+    background: #151111;
+    /* very slight red tint dark */
+}
+
+.text-danger {
+    color: var(--danger) !important;
+}
+
+table th {
+    background-color: rgba(239, 68, 68, 0.03);
+}
+
+select.role-select {
+    padding: 0.25rem;
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-color);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}

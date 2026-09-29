@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pocket Ledger</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-brand text-danger">
+                Pocket Ledger Admin
+            </div>
+            <div class="navbar-nav">
+                <a href="/" class="btn btn-outline">Back to Dashboard</a>
+                <button id="theme-toggle" class="btn btn-outline">Theme</button>
+                <button id="logout-btn" class="btn btn-outline">Logout</button>
+            </div>
+        </nav>
+
+        <div class="flex justify-between items-center mb-6">
+            <h1>Admin Dashboard</h1>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="dashboard-grid mb-8">
+            <div class="dashboard-card-sm card glass text-center">
+                <h3 class="text-muted">Total Users</h3>
+                <h2 id="admin-users">...</h2>
+            </div>
+            <div class="dashboard-card-sm card glass text-center">
+                <h3 class="text-muted">Total Expenses</h3>
+                <h2 id="admin-expenses-count">...</h2>
+            </div>
+            <div class="dashboard-card-sm card glass text-center">
+                <h3 class="text-muted">Total Volume</h3>
+                <h2 id="admin-spending">...</h2>
+            </div>
+            <div class="dashboard-card-sm card glass text-center">
+                <h3 class="text-muted">Total Budgets</h3>
+                <h2 id="admin-budgets">...</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Users Table -->
+            <div class="dashboard-card-md">
+                <div class="card glass h-full">
+                    <h3>Users</h3>
+                    <div style="overflow-x: auto; margin-top: 1rem;">
+                        <table id="admin-users-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expenses & Budgets Table -->
+            <div class="dashboard-card-xl">
+                <div class="card glass mb-6">
+                    <h3>Recent Global Expenses</h3>
+                    <div style="overflow-x: auto; margin-top: 1rem;">
+                        <table id="admin-expenses-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card glass">
+                    <h3>Recent Budgets</h3>
+                    <div style="overflow-x: auto; margin-top: 1rem;">
+                        <table id="admin-budgets-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Category</th>
+                                    <th>Month</th>
+                                    <th>Limit</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/admin.js"></script>
+</body>
+
+</html>
