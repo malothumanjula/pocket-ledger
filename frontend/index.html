@@ -4,189 +4,763 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Pocket Ledger</title>
+
+    <title>Pocket Ledger - Dashboard</title>
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
+
     <div class="container">
+
+        <!-- =========================
+             HEADER
+        ========================== -->
         <nav class="navbar">
+
             <div class="navbar-brand">
                 Pocket Ledger
             </div>
+
             <div class="navbar-nav">
-                <input type="month" id="month-selector" class="form-control" style="width: auto;">
-                <button id="theme-toggle" class="btn btn-outline">Theme</button>
-                <button id="logout-btn" class="btn btn-outline">Logout</button>
+
+                <input type="month" id="month-selector" class="form-control month-control">
+
+                <button id="theme-toggle" class="btn btn-outline" type="button">
+                    Theme
+                </button>
+
+                <button id="logout-btn" class="btn btn-outline" type="button">
+                    Logout
+                </button>
+
             </div>
+
         </nav>
 
-        <div class="flex justify-between items-center mb-6">
-            <h1 id="greeting">Welcome Back</h1>
-            <button id="add-expense-btn" class="btn btn-primary">+ Add Expense</button>
-        </div>
 
-        <!-- Summary Cards -->
-        <div class="dashboard-grid mb-8">
-            <div class="dashboard-card-md">
-                <div class="card glass">
-                    <p class="text-muted">Total Spending</p>
-                    <h2 id="total-spending">...</h2>
-                </div>
-            </div>
-            <div class="dashboard-card-md">
-                <div class="card glass">
-                    <p class="text-muted">Total Budget</p>
-                    <h2 id="total-budget">...</h2>
-                </div>
-            </div>
-            <div class="dashboard-card-md">
-                <div class="card glass">
-                    <p class="text-muted">Remaining</p>
-                    <h2 id="remaining-budget">...</h2>
-                </div>
-            </div>
-        </div>
+        <!-- =========================
+             PAGE HEADER
+        ========================== -->
+        <section class="page-header">
 
-        <div class="dashboard-grid mb-8">
-            <div class="dashboard-card-xl">
-                <div class="card glass h-full">
-                    <h3>6-Month Trend</h3>
-                    <div style="height: 300px; width: 100%; position: relative; margin-top: 1rem;">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="dashboard-card-sm">
-                <div class="card glass h-full">
-                    <h3>Category Breakdown</h3>
-                    <div style="height: 300px; width: 100%; position: relative; margin-top: 1rem;">
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
 
-        <div class="dashboard-grid">
-            <!-- Recent Transactions -->
-            <div class="dashboard-card-lg">
-                <div class="card glass">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3>Recent Transactions</h3>
-                        <button id="view-all-expenses" class="btn btn-outline"
-                            style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">View All</button>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table id="transactions-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Category</th>
-                                    <th>Note</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
-                    </div>
+                <h1 id="greeting">
+                    Welcome Back
+                </h1>
+
+                <p class="page-subtitle">
+                    Track your spending, budgets and financial activity.
+                </p>
+            </div>
+
+            <button id="add-expense-btn" class="btn btn-primary" type="button">
+                + Add Expense
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             KPI CARDS
+        ========================== -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+                <div class="kpi-icon">₹</div>
+
+                <div>
+                    <p class="kpi-label">
+                        Spent This Month
+                    </p>
+
+                    <h2 id="total-spending">
+                        ...
+                    </h2>
                 </div>
             </div>
 
-            <!-- Budgets -->
-            <div class="dashboard-card-lg">
-                <div class="card glass">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3>Category Budgets</h3>
-                        <button id="add-budget-btn" class="btn btn-outline"
-                            style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">+ Add Budget</button>
-                    </div>
-                    <div id="budgets-list">
-                        <!-- Populated by JS -->
-                    </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon">◐</div>
+
+                <div>
+                    <p class="kpi-label">
+                        Budget Remaining
+                    </p>
+
+                    <h2 id="remaining-budget">
+                        ...
+                    </h2>
                 </div>
             </div>
-        </div>
+
+
+            <div class="kpi-card">
+                <div class="kpi-icon">↗</div>
+
+                <div>
+                    <p class="kpi-label">
+                        Daily Average
+                    </p>
+
+                    <h2 id="daily-average">
+                        —
+                    </h2>
+                </div>
+            </div>
+
+
+            <div class="kpi-card">
+                <div class="kpi-icon">★</div>
+
+                <div>
+                    <p class="kpi-label">
+                        Top Category
+                    </p>
+
+                    <h2 id="top-category">
+                        —
+                    </h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SIX MONTH TREND
+        ========================== -->
+        <section class="dashboard-section">
+
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            SPENDING OVER TIME
+                        </p>
+
+                        <h3>
+                            Six-month spending
+                        </h3>
+                    </div>
+
+                    <span class="section-meta">
+                        By category
+                    </span>
+
+                </div>
+
+                <div class="large-chart">
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CATEGORY + BUDGET PACE
+        ========================== -->
+        <section class="two-column-grid">
+
+            <!-- WHERE I SPENT -->
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            BREAKDOWN
+                        </p>
+
+                        <h3>
+                            Where I spent
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="medium-chart">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- RUNNING TOTAL VS BUDGET -->
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            BUDGET PACE
+                        </p>
+
+                        <h3>
+                            Running total vs budget pace
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="budget-pace">
+
+                    <div class="pace-item">
+                        <div class="pace-label">
+                            <span>Spent</span>
+                            <strong id="pace-spent">—</strong>
+                        </div>
+
+                        <div class="pace-track">
+                            <div id="pace-spent-bar" class="pace-fill">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="pace-item">
+                        <div class="pace-label">
+                            <span>Budget</span>
+                            <strong id="pace-budget">—</strong>
+                        </div>
+
+                        <div class="pace-track">
+                            <div id="pace-budget-bar" class="pace-fill budget-fill">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="pace-summary">
+
+                        <span>
+                            Current month
+                        </span>
+
+                        <strong id="total-budget">
+                            ...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CATEGORY BUDGETS
+        ========================== -->
+        <section class="dashboard-section">
+
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            MONTHLY LIMITS
+                        </p>
+
+                        <h3>
+                            Category budgets
+                        </h3>
+                    </div>
+
+                    <button id="add-budget-btn" class="btn btn-outline" type="button">
+                        + Add Budget
+                    </button>
+
+                </div>
+
+                <div id="budgets-list" class="budget-list">
+                    <!-- Populated by dashboard.js -->
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ADD EXPENSE + EMI/SIP
+        ========================== -->
+        <section class="two-column-grid">
+
+            <!-- ADD EXPENSE -->
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            QUICK ENTRY
+                        </p>
+
+                        <h3>
+                            Add an expense
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="quick-entry">
+
+                    <div class="quick-entry-icon">
+                        +
+                    </div>
+
+                    <div>
+                        <strong>
+                            Record a new expense
+                        </strong>
+
+                        <p>
+                            Add amount, category, date and note.
+                        </p>
+                    </div>
+
+                </div>
+
+                <button id="quick-add-expense" class="btn btn-primary w-full" type="button">
+                    Add Expense
+                </button>
+
+            </div>
+
+
+            <!-- EMI & SIP -->
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            PLANNED PAYMENTS
+                        </p>
+
+                        <h3>
+                            EMI &amp; SIP
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="financial-items">
+
+                    <div class="financial-item">
+
+                        <div>
+                            <span class="financial-name">
+                                EMI
+                            </span>
+
+                            <p>
+                                Monthly loan payment
+                            </p>
+                        </div>
+
+                        <strong id="emi-value">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="financial-item">
+
+                        <div>
+                            <span class="financial-name">
+                                SIP
+                            </span>
+
+                            <p>
+                                Monthly investment
+                            </p>
+                        </div>
+
+                        <strong id="sip-value">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DAY OF WEEK
+        ========================== -->
+        <section class="dashboard-section">
+
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            SPENDING PATTERN
+                        </p>
+
+                        <h3>
+                            By day of week
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="weekday-grid">
+
+                    <div class="weekday-item">
+                        <span>Mon</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Tue</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Wed</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Thu</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Fri</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Sat</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="weekday-item">
+                        <span>Sun</span>
+                        <div class="weekday-bar">
+                            <div></div>
+                        </div>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRANSACTIONS
+        ========================== -->
+        <section class="dashboard-section">
+
+            <div class="section-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            ACTIVITY
+                        </p>
+
+                        <h3>
+                            Transactions
+                        </h3>
+                    </div>
+
+                    <button id="view-all-expenses" class="btn btn-outline" type="button">
+                        View All
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table id="transactions-table">
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Note</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Populated by dashboard.js -->
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
         <br><br>
+
     </div>
 
-    <!-- Add Expense Modal -->
+
+    <!-- ==================================================
+         ADD EXPENSE MODAL
+    =================================================== -->
+
     <div id="expense-modal" class="modal-overlay">
+
         <div class="modal">
+
             <div class="modal-header">
-                <h3 id="expense-modal-title">Add Expense</h3>
-                <button class="modal-close"
-                    onclick="document.getElementById('expense-modal').classList.remove('active')">&times;</button>
+
+                <h3 id="expense-modal-title">
+                    Add Expense
+                </h3>
+
+                <button class="modal-close" type="button"
+                    onclick="document.getElementById('expense-modal').classList.remove('active')">
+                    &times;
+                </button>
+
             </div>
+
+
             <form id="expense-form">
+
                 <input type="hidden" id="expense-id">
+
+
                 <div class="form-group">
-                    <label>Amount</label>
+
+                    <label for="expense-amount">
+                        Amount
+                    </label>
+
                     <input type="number" id="expense-amount" class="form-control" step="0.01" required>
+
                 </div>
+
+
                 <div class="form-group">
-                    <label>Date</label>
+
+                    <label for="expense-date">
+                        Date
+                    </label>
+
                     <input type="date" id="expense-date" class="form-control" required>
+
                 </div>
+
+
                 <div class="form-group">
-                    <label>Category</label>
+
+                    <label for="expense-category">
+                        Category
+                    </label>
+
                     <select id="expense-category" class="form-control" required>
-                        <option value="Housing">Housing</option>
-                        <option value="Food & Dining">Food & Dining</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Health">Health</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Other">Other</option>
+
+                        <option value="Housing">
+                            Housing
+                        </option>
+
+                        <option value="Food & Dining">
+                            Food &amp; Dining
+                        </option>
+
+                        <option value="Transport">
+                            Transport
+                        </option>
+
+                        <option value="Utilities">
+                            Utilities
+                        </option>
+
+                        <option value="Shopping">
+                            Shopping
+                        </option>
+
+                        <option value="Health">
+                            Health
+                        </option>
+
+                        <option value="Entertainment">
+                            Entertainment
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
                     </select>
+
                 </div>
+
+
                 <div class="form-group">
-                    <label>Note</label>
-                    <input type="text" id="expense-note" class="form-control">
+
+                    <label for="expense-note">
+                        Note
+                    </label>
+
+                    <input type="text" id="expense-note" class="form-control" placeholder="What was this expense for?">
+
                 </div>
-                <button type="submit" class="btn btn-primary w-full">Save Expense</button>
+
+
+                <button type="submit" class="btn btn-primary w-full">
+                    Save Expense
+                </button>
+
             </form>
+
         </div>
+
     </div>
 
-    <!-- Add Budget Modal -->
+
+    <!-- ==================================================
+         BUDGET MODAL
+    =================================================== -->
+
     <div id="budget-modal" class="modal-overlay">
+
         <div class="modal">
+
             <div class="modal-header">
-                <h3>Manage Budget</h3>
-                <button class="modal-close"
-                    onclick="document.getElementById('budget-modal').classList.remove('active')">&times;</button>
+
+                <h3>
+                    Manage Budget
+                </h3>
+
+                <button class="modal-close" type="button"
+                    onclick="document.getElementById('budget-modal').classList.remove('active')">
+                    &times;
+                </button>
+
             </div>
+
+
             <form id="budget-form">
+
                 <div class="form-group">
-                    <label>Category</label>
+
+                    <label for="budget-category">
+                        Category
+                    </label>
+
                     <select id="budget-category" class="form-control" required>
-                        <option value="Housing">Housing</option>
-                        <option value="Food & Dining">Food & Dining</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Health">Health</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Other">Other</option>
+
+                        <option value="Housing">
+                            Housing
+                        </option>
+
+                        <option value="Food & Dining">
+                            Food &amp; Dining
+                        </option>
+
+                        <option value="Transport">
+                            Transport
+                        </option>
+
+                        <option value="Utilities">
+                            Utilities
+                        </option>
+
+                        <option value="Shopping">
+                            Shopping
+                        </option>
+
+                        <option value="Health">
+                            Health
+                        </option>
+
+                        <option value="Entertainment">
+                            Entertainment
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
                     </select>
+
                 </div>
+
+
                 <div class="form-group">
-                    <label>Monthly Amount</label>
+
+                    <label for="budget-amount">
+                        Monthly Amount
+                    </label>
+
                     <input type="number" id="budget-amount" class="form-control" step="0.01" required>
+
                 </div>
-                <button type="submit" class="btn btn-primary w-full">Save Budget</button>
+
+
+                <button type="submit" class="btn btn-primary w-full">
+                    Save Budget
+                </button>
+
             </form>
+
         </div>
+
     </div>
 
-    <!-- Added Chart.js directly as requested -->
+
+    <!-- ==================================================
+         SCRIPTS
+    =================================================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
     <script src="./js/api.js"></script>
     <script src="./js/app.js"></script>
     <script src="./js/dashboard.js"></script>
+
 </body>
 
 </html>
